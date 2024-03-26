@@ -22,13 +22,13 @@ public class Main {
         int [] prob = new int []{1 ,0, 1, 1, 0};
         int [] sol = new int[]{1, 1, 0, 1, 0};
 
-        ProbIA5Board board = new ProbIA5Board(prob, sol );
+        ProbServersBoard board = new ProbServersBoard(prob, sol );
 
         // Create the Problem object
         Problem p = new  Problem(board,
-                new ProbIA5SuccesorFunction(),
-                new ProbIA5GoalTest(),
-                new ProbIA5HeuristicFunction());
+                new ProbServersSuccesorFunction(),
+                new ProbServersGoalTest(),
+                new ProbServersHeuristicFunction());
 
         // Instantiate the search algorithm
         // AStarSearch(new GraphSearch()) or IterativeDeepeningAStarSearch()
