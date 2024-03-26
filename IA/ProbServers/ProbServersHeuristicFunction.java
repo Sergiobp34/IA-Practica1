@@ -6,10 +6,10 @@ package IA.ProbServers;
 
 import aima.search.framework.HeuristicFunction;
 
-public class ProbIA5HeuristicFunction implements HeuristicFunction {
+public class ProbServersHeuristicFunction implements HeuristicFunction {
 
     public double getHeuristicValue(Object n){
 
-        return ((ProbIA5Board) n).heuristic();
+        return ((ProbServersBoard) n).heuristic();
     }
 }

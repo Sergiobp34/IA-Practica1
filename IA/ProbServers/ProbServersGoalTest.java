@@ -5,10 +5,10 @@ import aima.search.framework.GoalTest;
 /**
  * Created by bejar on 17/01/17.
  */
-public class ProbIA5GoalTest implements GoalTest {
+public class ProbServersGoalTest implements GoalTest {
 
     public boolean isGoalState(Object state){
 
-        return((ProbIA5Board) state).is_goal();
+        return((ProbServersBoard) state).is_goal();
     }
 }
