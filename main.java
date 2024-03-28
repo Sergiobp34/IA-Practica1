@@ -11,6 +11,7 @@ import aima.search.informed.IterativeDeepeningAStarSearch;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import IA.DistFS.*
 
 public class Main {
 
