@@ -1,6 +1,7 @@
 import IA.ProbServers.ProbServersBoard;
 import IA.ProbServers.ProbServersGoalTest;
 import IA.ProbServers.ProbServersHeuristicFunction;
+import IA.ProbServers.ProbServersHeuristicFunction2;
 import IA.ProbServers.ProbServersSuccesorFunction;
 import aima.search.framework.GraphSearch;
 import aima.search.framework.Problem;
