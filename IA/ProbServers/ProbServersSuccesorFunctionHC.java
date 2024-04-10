@@ -1,14 +1,14 @@
 package IA.ProbServers;
 
 import aima.search.framework.SuccessorFunction;
-import aima.search.framework.Successor;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by bejar on 17/01/17
  */
-public class ProbServersSuccesorFunction implements SuccessorFunction{
+public class ProbServersSuccesorFunctionHC implements SuccessorFunction{
 
     public List getSuccessors(Object state){
         ArrayList retval = new ArrayList();

@@ -2,18 +2,16 @@
 import IA.ProbServers.ProbServersBoard;
 import IA.ProbServers.ProbServersGoalTest;
 import IA.ProbServers.ProbServersHeuristicFunction;
-import IA.ProbServers.ProbServersHeuristicFunction2;
-import IA.ProbServers.ProbServersSuccesorFunction;
+import IA.ProbServers.ProbServersSuccesorFunctionHC;
 import aima.search.framework.GraphSearch;
 import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
 import aima.search.informed.AStarSearch;
-import aima.search.informed.IterativeDeepeningAStarSearch;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import IA.DistFS.*;
 
 public class main {
 
@@ -23,13 +21,12 @@ public class main {
          *    count(0,prob) % 2 == count(0,sol) %2
          */
         int [] prob = new int []{1 ,0, 1, 1, 0};
-        int [] sol = new int[]{1, 1, 0, 1, 0};
 
-        ProbServersBoard board = new ProbServersBoard(prob, sol );
+        ProbServersBoard board = new ProbServersBoard(prob);
 
         // Create the Problem object
         Problem p = new  Problem(board,
-                new ProbServersSuccesorFunction(),
+                new ProbServersSuccesorFunctionHC(),
                 new ProbServersGoalTest(),
                 new ProbServersHeuristicFunction());
 

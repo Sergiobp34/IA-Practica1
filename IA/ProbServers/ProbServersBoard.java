@@ -1,29 +1,21 @@
 package IA.ProbServers;
 
-/**
- * Created by bejar on 17/01/17.
- */
+
 public class ProbServersBoard {
-    /* Class independent from AIMA classes
-       - It has to implement the state of the problem and its operators
-     *
 
     /* State data structure
-        vector with the parity of the coins (we can assume 0 = heads, 1 = tails
+
      */
 
     private int [] board;
-    private static int [] solution;
 
     /* Constructor */
-    public ProbServersBoard(int []init, int[] goal) {
+    public ProbServersBoard(int []init) {
 
         board = new int[init.length];
-        solution = new int[init.length];
 
         for (int i = 0; i< init.length; i++) {
             board[i] = init[i];
-            solution[i] = goal[i];
         }
 
     }
@@ -33,8 +25,14 @@ public class ProbServersBoard {
         // flip the coins i and i + 1
     }
 
-    /* Heuristic function */
-    public double heuristic(){
+    /* Heuristic function1 */
+    public double heuristic1(){
+        // compute the number of coins out of place respect to solution
+        return 0;
+    }
+
+    /* Heuristic function2 */
+    public double heuristic2(){
         // compute the number of coins out of place respect to solution
         return 0;
     }
@@ -45,10 +43,5 @@ public class ProbServersBoard {
         return false;
     }
 
-    /* auxiliary functions */
-
-    // Some functions will be needed for creating a copy of the state
-
-    /* ^^^^^ TO COMPLETE ^^^^^ */
 
 }

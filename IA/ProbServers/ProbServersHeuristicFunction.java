@@ -10,6 +10,6 @@ public class ProbServersHeuristicFunction implements HeuristicFunction {
 
     public double getHeuristicValue(Object n){
 
-        return ((ProbServersBoard) n).heuristic();
+        return ((ProbServersBoard) n).heuristic1();
     }
 }

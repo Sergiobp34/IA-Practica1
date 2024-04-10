@@ -11,9 +11,9 @@ import aima.search.informed.HillClimbingSearch;
 import aima.search.informed.SimulatedAnnealingSearch;
 
 // Inspirat en la classe de probTSP
-public class ProbTSPDemo {
+public class ProbServersDemo {
     public static void main(String[] args){
-        ProbServersBoard SP=new ProbServersBoard(30); // A canviar
+        ProbServersBoard SP=new ProbServersBoard(new int[8]); // A canviar
         SPHillClimbingSearch(SP);
         SPSimulatedAnnealingSearch(SP);
     }
@@ -21,7 +21,7 @@ public class ProbTSPDemo {
     private static void SPHillClimbingSearch(ProbServersBoard SP) {
         System.out.println("\nTSP HillClimbing  -->");
         try {
-            Problem problem =  new Problem(SP,new ProbServersSuccesorFunction(), new ProbServersGoalTest(),new ProbServersHeuristicFunction());
+            Problem problem =  new Problem(SP,new ProbServersSuccesorFunctionHC(), new ProbServersGoalTest(),new ProbServersHeuristicFunction());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
 
@@ -37,7 +37,7 @@ public class ProbTSPDemo {
         System.out.println("\nTSP Simulated Annealing  -->");
         try {
             // Atenció! SA fa servir una altra Successor Function que seria ProbServersSuccesorFunctionSA en comptes de ProbServersSuccesorFunction
-            Problem problem =  new Problem(SP,new ProbServersSuccesorFunction(), new ProbServersGoalTest(),new ProbServersHeuristicFunction());
+            Problem problem =  new Problem(SP,new ProbServersSuccesorFunctionSA(), new ProbServersGoalTest(),new ProbServersHeuristicFunction());
             SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001); // Falta posar els paràmetres que toca
             //search.traceOn();
             SearchAgent agent = new SearchAgent(problem,search);
