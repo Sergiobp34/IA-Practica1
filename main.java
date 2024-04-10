@@ -1,3 +1,4 @@
+
 import IA.ProbServers.ProbServersBoard;
 import IA.ProbServers.ProbServersGoalTest;
 import IA.ProbServers.ProbServersHeuristicFunction;
@@ -12,9 +13,9 @@ import aima.search.informed.IterativeDeepeningAStarSearch;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import IA.DistFS.*
+import IA.DistFS.*;
 
-public class Main {
+public class main {
 
     public static void main(String[] args) throws Exception{
         /**
