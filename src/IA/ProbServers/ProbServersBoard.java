@@ -2,7 +2,6 @@ package IA.ProbServers;
 
 import IA.DistFS.Requests;
 import IA.DistFS.Servers;
-import aima.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -14,7 +13,7 @@ public class ProbServersBoard {
     private ArrayList<ArrayList<Integer>> FileServer;
 // private ArrayList<Pair<Integer,Pair<Integer, Integer>>> Req; eliminat perque no es pot declarar tipus dins el Pair
 
-    private ArrayList<ArrayList<Integer>> Requests;              //vector de servidors on un int diu quin es el servidor que la facilita
+    private ArrayList<ArrayList<Integer>> Peticions;              //vector de servidors on un int diu quin es el servidor que la facilita
 
     private int [][] FSFiles;                                               //vector de FS de vectors amb els fitxers
     //private ArrayList<Pair<Integer,Integer>> Files;                         //NO SE SI CAL. vector de Pair<Files, num> on num es el numero de vegades que esta el fitxer en un FS
@@ -40,17 +39,18 @@ public class ProbServersBoard {
         }
 
 
-        Requests = new ArrayList<>(nserv);
+        Peticions = new ArrayList<>(nserv);
         for (int i = 0; i < nserv; ++i) {
             ArrayList<Integer> ini = new ArrayList<>();
-            Requests.add(i, ini);
+            Peticions.add(i, ini);
         }
         for (int req = 0; req < requests.size(); ++req){
             boolean exit = false;
             for (int i = 0; i < nserv && !exit; ++i) {
                 for (int j = 0; j < FileServer.get(i).size(); ++j) {
-                    if (requests.getRequest(req)[1] == j) {
-                        Requests.get(i).add(j);
+                    if (requests.getRequest(req)[1] == FileServer.get(i).get(j)) {
+                        Peticions.get(i).add(FileServer.get(i).get(j));
+                        System.out.println("peticio " + req + " de fitxer " + FileServer.get(i).get(j) + " al servidor " + i);
                         exit = true;
                         break;
                     }
