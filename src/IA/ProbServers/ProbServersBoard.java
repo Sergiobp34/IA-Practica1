@@ -49,7 +49,7 @@ public class ProbServersBoard {
             boolean exit = false;
             for (int i = 0; i < nserv && !exit; ++i) {
                 for (int j = 0; j < FileServer.get(i).size(); ++j) {
-                    if (requests.getRequest(req)[2] == j) {
+                    if (requests.getRequest(req)[1] == j) {
                         Requests.get(i).add(j);
                         exit = true;
                         break;
