@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="DistFS">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/DistributedFS.jar!/IA/DistFS" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
