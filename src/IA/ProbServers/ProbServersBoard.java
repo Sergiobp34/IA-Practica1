@@ -9,26 +9,33 @@ import java.util.Set;
 
 public class ProbServersBoard {
 
-    /* State data structure
+    //* State data structure
 
-     */
-    private ArrayList<Integer>[] FS;
+    private ArrayList<ArrayList<Integer>> FileServer;
 // private ArrayList<Pair<Integer,Pair<Integer, Integer>>> Req; eliminat perque no es pot declarar tipus dins el Pair
+
     private ArrayList<Pair> Req;            //vector[Pair<Pair<usuari,fitxer>,time>] vector de peticions. time es el temps a calcular
+
     private int [][] FSFiles;                                               //vector de FS de vectors amb els fitxers
     //private ArrayList<Pair<Integer,Integer>> Files;                         //NO SE SI CAL. vector de Pair<Files, num> on num es el numero de vegades que esta el fitxer en un FS
+
     private int [][] sol;           // vector solució dels FS amb la distribució dels fitxers
 
     /* Constructor */
     public ProbServersBoard(Servers servers, Requests requests, int nserv) {
 
-        FS = new ArrayList[nserv];
+        FileServer = new ArrayList<>(nserv);
+
+        for(int i=0; i<nserv; ++i){
+            ArrayList<Integer> ini = new ArrayList<>();
+            FileServer.add(i, ini);
+        }
 
         for (Integer i=0; i< servers.size(); ++i){
             Set<Integer> locations = servers.fileLocations(i);
-            for (Integer location : locations) {
+            for (Integer location : locations) {                                //location es l'index del servidor
                 //Imprimeix be però falta que ho afegeixi al vector d'arraylist
-                //FS[location].add(i);
+                FileServer.get(location).add(i);
                 System.out.println("fitxer "+i+ " a servidor "+location);
             }
         }
