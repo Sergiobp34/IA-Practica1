@@ -14,7 +14,7 @@ public class ProbServersBoard {
     private ArrayList<ArrayList<Integer>> FileServer;
 // private ArrayList<Pair<Integer,Pair<Integer, Integer>>> Req; eliminat perque no es pot declarar tipus dins el Pair
 
-    private ArrayList<Pair> Req;            //vector[Pair<Pair<usuari,fitxer>,time>] vector de peticions. time es el temps a calcular
+    private ArrayList<ArrayList<Integer>> Requests;              //vector de servidors on un int diu quin es el servidor que la facilita
 
     private int [][] FSFiles;                                               //vector de FS de vectors amb els fitxers
     //private ArrayList<Pair<Integer,Integer>> Files;                         //NO SE SI CAL. vector de Pair<Files, num> on num es el numero de vegades que esta el fitxer en un FS
@@ -25,20 +25,39 @@ public class ProbServersBoard {
     public ProbServersBoard(Servers servers, Requests requests, int nserv) {
 
         FileServer = new ArrayList<>(nserv);
-
-        for(int i=0; i<nserv; ++i){
+        for (int i = 0; i < nserv; ++i) {
             ArrayList<Integer> ini = new ArrayList<>();
             FileServer.add(i, ini);
         }
 
-        for (Integer i=0; i< servers.size(); ++i){
+        for (Integer i = 0; i < servers.size(); ++i) {
             Set<Integer> locations = servers.fileLocations(i);
             for (Integer location : locations) {                                //location es l'index del servidor
                 //Imprimeix be però falta que ho afegeixi al vector d'arraylist
                 FileServer.get(location).add(i);
-                System.out.println("fitxer "+i+ " a servidor "+location);
+                System.out.println("fitxer " + i + " a servidor " + location);
             }
         }
+
+
+        Requests = new ArrayList<>(nserv);
+        for (int i = 0; i < nserv; ++i) {
+            ArrayList<Integer> ini = new ArrayList<>();
+            Requests.add(i, ini);
+        }
+        for (int req = 0; req < requests.size(); ++req){
+            boolean exit = false;
+            for (int i = 0; i < nserv && !exit; ++i) {
+                for (int j = 0; j < FileServer.get(i).size(); ++j) {
+                    if (requests.getRequest(req)[2] == j) {
+                        Requests.get(i).add(j);
+                        exit = true;
+                        break;
+                    }
+                }
+            }
+        }
+
 
         //board = new int[init.length];
 
