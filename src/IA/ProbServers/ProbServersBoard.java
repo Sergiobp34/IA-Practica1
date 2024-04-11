@@ -8,15 +8,16 @@ import java.util.Set;
 
 public class ProbServersBoard {
 
-    //* State data structure
+    //State data structure
 
     private ArrayList<ArrayList<Integer>> FileServer; // Els fitxers que conté cada servidor
-    private ArrayList<ArrayList<Integer[]>> Peticions; //vector de servidors on un int diu quin es el servidor que la facilita
+    private ArrayList<ArrayList<Integer[]>> Peticions; //vector de servidors on un int diu quin es el servidor que facilita la peticio (tenint en compte el fitxer)
     private ArrayList<Integer> Temps; // Vector amb el temps total que triga un servidor a atendre les peticions que té assignades
 
-    /* Constructor */
+    //Constructor
     public ProbServersBoard(Servers servers, Requests requests, int nserv) {
 
+        //Inicialització de FileServer
         FileServer = new ArrayList<>(nserv);
         for (int i = 0; i < nserv; ++i) {
             ArrayList<Integer> ini = new ArrayList<>();
@@ -26,13 +27,12 @@ public class ProbServersBoard {
         for (Integer i = 0; i < servers.size(); ++i) {
             Set<Integer> locations = servers.fileLocations(i);
             for (Integer location : locations) {                                //location es l'index del servidor
-                //Imprimeix be però falta que ho afegeixi al vector d'arraylist
                 FileServer.get(location).add(i);
                 System.out.println("fitxer " + i + " a servidor " + location);
             }
         }
 
-
+        //Inicialització de Peticions i Temps
         Peticions = new ArrayList<>(nserv);
         for (int i = 0; i < nserv; ++i) {
             ArrayList<Integer[]> ini = new ArrayList<>();
@@ -66,38 +66,25 @@ public class ProbServersBoard {
         for (int i = 0; i < nserv; ++i) {
             System.out.println("Servidor " + i + ": temps " + Temps.get(i));
         }
+    }
 
 
-        //board = new int[init.length];
+    //Operators
 
-//        for (int i = 0; i< init.length; i++) {
-//           // board[i] = init[i];
-//        }
+    public void transferPetition(Servers servers, Requests requests, int server1, int peticio1, int server2){
+        //restar el temps de la peticio1 i eliminar  la peticio1 del server1
+        Temps.set(server1, Temps.get(server1)-servers.tranmissionTime(server1, requests.getRequest(peticio1)[0]));
+        FileServer.get(server1).remove(requests.getRequest(peticio1)[1]);
+
+        //afegir la peticio1 i sumar el temps de la peticio1 al server2
+        Temps.set(server2, Temps.get(server2)+servers.tranmissionTime(server2, requests.getRequest(peticio1)[0]));
+        FileServer.get(server2).add(requests.getRequest(peticio1)[1]);
+    }
+
+    public void swapPetition(int server1, int petition1, int server2, int petition2){
 
     }
 
-    /* vvvvv TO COMPLETE vvvvv */
-    public void flip_it(int i){
-        // flip the coins i and i + 1
-    }
-
-    /* Heuristic function1 */
-    public double heuristic1(){
-        // compute the number of coins out of place respect to solution
-        return 0;
-    }
-
-    /* Heuristic function2 */
-    public double heuristic2(){
-        // compute the number of coins out of place respect to solution
-        return 0;
-    }
-
-    /* Goal test */
-    public boolean is_goal(){
-        // compute if board = solution
-        return false;
-    }
 
 
 }
