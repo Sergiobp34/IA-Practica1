@@ -5,16 +5,7 @@ import IA.ProbServers.ProbServersBoard;
 //import IA.ProbServers.ProbServersGoalTest;
 //import IA.ProbServers.ProbServersHeuristicFunction;
 //import IA.ProbServers.ProbServersSuccesorFunctionHC;
-import aima.search.framework.GraphSearch;
-import aima.search.framework.Problem;
-import aima.search.framework.Search;
-import aima.search.framework.SearchAgent;
-import aima.search.informed.AStarSearch;
-import jdk.jfr.Frequency;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) throws Servers.WrongParametersException {
