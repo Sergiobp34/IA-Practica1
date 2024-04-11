@@ -1,5 +1,8 @@
 package IA.ProbServers;
 
+import aima.util.Pair;
+
+import java.util.ArrayList;
 
 public class ProbServersBoard {
 
@@ -7,15 +10,18 @@ public class ProbServersBoard {
 
      */
 
-    private int [] board;
+    private ArrayList<Pair<Integer,Pair<Integer, Integer>>> Req;            //vector[Pair<Pair<usuari,fitxer>,time>] vector de peticions. time es el temps a calcular
+    private int [][] FSFiles;                                               //vector de FS de vectors amb els fitxers
+    private ArrayList<Pair<Integer,Integer>> Files;                         //NO SE SI CAL. vector de Pair<Files, num> on num es el numero de vegades que esta el fitxer en un FS
+    private int [][] sol;           // vector solució dels FS amb la distribució dels fitxers
 
     /* Constructor */
     public ProbServersBoard(int []init) {
 
-        board = new int[init.length];
+        //board = new int[init.length];
 
         for (int i = 0; i< init.length; i++) {
-            board[i] = init[i];
+           // board[i] = init[i];
         }
 
     }
