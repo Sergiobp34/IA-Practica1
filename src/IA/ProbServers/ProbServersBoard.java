@@ -81,8 +81,9 @@ public class ProbServersBoard {
         FileServer.get(server2).add(requests.getRequest(peticio1)[1]);
     }
 
-    public void swapPetition(int server1, int petition1, int server2, int petition2){
-
+    public void swapPetition(Servers servers, Requests requests, int server1, int petition1, int server2, int petition2){
+        transferPetition(servers, requests, server1, petition1, server2);
+        transferPetition(servers, requests, server2, petition2, server1);
     }
 
 
