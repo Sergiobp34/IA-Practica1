@@ -1,4 +1,4 @@
-package IA.ProbServers;
+package src.ProbServers;
 
 
 import aima.search.framework.HeuristicFunction;

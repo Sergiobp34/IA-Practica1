@@ -1,8 +1,9 @@
+package src;
 
-import IA.ProbServers.ProbServersBoard;
-import IA.ProbServers.ProbServersGoalTest;
-import IA.ProbServers.ProbServersHeuristicFunction;
-import IA.ProbServers.ProbServersSuccesorFunctionHC;
+import src.ProbServers.ProbServersBoard;
+import src.ProbServers.ProbServersGoalTest;
+import src.ProbServers.ProbServersHeuristicFunction;
+import src.ProbServers.ProbServersSuccesorFunctionHC;
 import aima.search.framework.GraphSearch;
 import aima.search.framework.Problem;
 import aima.search.framework.Search;

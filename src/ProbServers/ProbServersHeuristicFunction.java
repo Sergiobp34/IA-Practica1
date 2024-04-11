@@ -1,4 +1,4 @@
-package IA.ProbServers;
+package src.ProbServers;
 
 /**
  * Created by bejar on 17/01/17.
