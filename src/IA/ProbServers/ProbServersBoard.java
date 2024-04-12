@@ -12,10 +12,20 @@ public class ProbServersBoard {
 
     private ArrayList<ArrayList<Integer>> FileServer; // Els fitxers que conté cada servidor
     private ArrayList<ArrayList<Integer[]>> Peticions; //vector de servidors on un int diu quin es el servidor que facilita la peticio (tenint en compte el fitxer)
+
+    //Hauriem de posar el Temps com un Map(HashMap a Java) que ordeni pel temps(per que l'heuristic sigui eficient)
     private ArrayList<Integer> Temps; // Vector amb el temps total que triga un servidor a atendre les peticions que té assignades
+
+    private int numFitxers;
+    private int numServers;
+    private int numPeticions;
 
     //Constructor
     public ProbServersBoard(Servers servers, Requests requests, int nserv) {
+
+        numServers = nserv;
+        numFitxers = servers.size();
+        numPeticions = requests.size();
 
         //Inicialització de FileServer
         FileServer = new ArrayList<>(nserv);
@@ -84,6 +94,50 @@ public class ProbServersBoard {
     public void swapPetition(Servers servers, Requests requests, int server1, int petition1, int server2, int petition2){
         transferPetition(servers, requests, server1, petition1, server2);
         transferPetition(servers, requests, server2, petition2, server1);
+    }
+
+
+    //Heuristic1
+    public double heuristic1(){
+        double t = 0;
+        for (Integer temp : Temps) {
+            if (temp > t) t = temp;
+        }
+        return t;
+    }
+
+    //Heuristic2
+    public double heuristic2(){
+        double sum = 0;
+
+        //suma tots els temps de transmissio
+        for (Integer temp : Temps) sum += temp;
+
+        //penalitzacio1: rang m que ha d'estar entre [m-1,m+1]        sumem 30000ms per servidor que no estigui al rang
+
+        int numServersPenal = 0;
+        int[] mLim = new int[2];
+        mLim[0] = (numFitxers/numServers)-1;
+        mLim[1] = (numFitxers/numServers)+1;
+
+        for (ArrayList<Integer> server : FileServer) {
+            if (server.size() < mLim[0]) ++numServersPenal;
+            if (server.size() > mLim[1]) ++numServersPenal;
+        }
+
+        double penalitzacio1 = numServersPenal * 30000;
+
+        //penalitzacio2: diferencia de temps entre mes gran i mes petit       sumem 70000ms*(diferencia/1000)
+        int min= Integer.MAX_VALUE;
+        int max=0;
+        for (Integer temp : Temps) {
+            if (temp > max) max = temp;
+            if(temp < min) min = temp;
+        }
+        double diff= max-min;
+        double penalitzacio2 = 70000 * (diff/1000);
+
+        return sum + penalitzacio1 +penalitzacio2;
     }
 
 
