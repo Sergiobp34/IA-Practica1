@@ -49,9 +49,9 @@ public class Main {
             Search search = new HillClimbingSearch();
             SearchAgent searchAgent = new SearchAgent(problem, search);
 
-            // Imprimir estat
-            // ProbServersBoard nouBoard = (ProbServersBoard) search.getGoalState();
-            // System.out.println(nouBoard.imprimirEstat); Fer print board d'alguna manera
+            //Imprimir estat
+            ProbServersBoard nouBoard = (ProbServersBoard) search.getGoalState();
+            nouBoard.imprimirBoard(); //Fer print board d'alguna manera
 
             System.out.println();
             //Imprimir dades searchAgent

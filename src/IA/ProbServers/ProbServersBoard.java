@@ -11,7 +11,7 @@ public class ProbServersBoard {
     //State data structure
 
     private ArrayList<ArrayList<Integer>> FileServer; // Els fitxers que conté cada servidor
-    private ArrayList<ArrayList<Integer[]>> Peticions; //vector de servidors on un int diu quin es el servidor que facilita la peticio (tenint en compte el fitxer)
+    private ArrayList<ArrayList<Integer[]>> Peticions; //vector de servidors on un int diu quin es el servidor que facilita la peticio (tenint en compte el fitxer). Primer element és usuari, segon és fitxer.
 
     //Hauriem de posar el Temps com un Map(HashMap a Java) que ordeni pel temps(per que l'heuristic sigui eficient)
     private ArrayList<Integer> Temps; // Vector amb el temps total que triga un servidor a atendre les peticions que té assignades
@@ -141,9 +141,17 @@ public class ProbServersBoard {
     }
 
     public boolean is_goal(){
+        // Ara retorno false per que pugui executar sense errors, però s'ha de plantejar com fer-ho
         return false;
     }
 
-
+    public void imprimirBoard(){
+        for (int i = 0; i < numServers; ++i) {
+            System.out.println("Servidor " + i + ", temps total: " + Temps.get(i));
+            for (int j = 0; j < Peticions.get(i).size(); ++j){
+                System.out.println("    Servidor " + i + " atèn la petició [usuari "+ Peticions.get(i).get(j)[0] +", fitxer "+ Peticions.get(i).get(j)[1] +"]");
+            }
+        }
+    }
 
 }
