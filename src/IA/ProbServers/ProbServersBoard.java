@@ -140,6 +140,10 @@ public class ProbServersBoard {
         return sum + penalitzacio1 +penalitzacio2;
     }
 
+    public boolean is_goal(){
+        return false;
+    }
+
 
 
 }

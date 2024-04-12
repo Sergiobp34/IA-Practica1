@@ -1,4 +1,4 @@
-package IA.ProbServers.hide;
+package IA.ProbServers;
 
 import IA.ProbServers.ProbServersBoard;
 import aima.search.framework.GoalTest;

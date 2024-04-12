@@ -2,9 +2,18 @@ import IA.DistFS.Servers;
 import IA.DistFS.Requests;
 
 import IA.ProbServers.ProbServersBoard;
-//import IA.ProbServers.ProbServersGoalTest;
-//import IA.ProbServers.ProbServersHeuristicFunction;
-//import IA.ProbServers.ProbServersSuccesorFunctionHC;
+import IA.ProbServers.ProbServersGoalTest;
+import IA.ProbServers.ProbServersHeuristicFunction1;
+import IA.ProbServers.ProbServersSuccesorFunctionHC;
+
+import aima.search.framework.Problem;
+import aima.search.framework.Search;
+import aima.search.framework.SearchAgent;
+import aima.search.informed.HillClimbingSearch;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 
 
 public class Main {
@@ -27,10 +36,51 @@ public class Main {
         System.out.println("requests size: " + requests.size());
 
         ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv);
+        ServersHillClimbing(serversBoard);
     }
 
+    private static void ServersHillClimbing(ProbServersBoard board) {
+        System.out.println("\nHill Climbing -->");
+        try {
+            Problem problem = new Problem(board,
+                    new ProbServersSuccesorFunctionHC(),
+                    new ProbServersGoalTest(),
+                    new ProbServersHeuristicFunction1());
+            Search search = new HillClimbingSearch();
+            SearchAgent searchAgent = new SearchAgent(problem, search);
 
-//    Main anterior
+            // Imprimir estat
+            // ProbServersBoard nouBoard = (ProbServersBoard) search.getGoalState();
+            // System.out.println(nouBoard.imprimirEstat); Fer print board d'alguna manera
+
+            System.out.println();
+            //Imprimir dades searchAgent
+            printActions(searchAgent.getActions());
+            printInstrumentation(searchAgent.getInstrumentation());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void printInstrumentation(Properties properties) {
+        Iterator keys = properties.keySet().iterator();
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
+            String property = properties.getProperty(key);
+            System.out.println(key + " : " + property);
+        }
+
+    }
+
+    private static void printActions(List actions) {
+        for (int i = 0; i < actions.size(); i++) {
+            String action = (String) actions.get(i);
+            System.out.println(action);
+        }
+    }
+}
+
+//    Main anterior, guardat per si fa falta
 //    public static void main(String[] args) throws Exception{
 //        /**
 //         *  For a problem to be solvable:
@@ -62,21 +112,3 @@ public class Main {
 //        // method getGoalState of class Search
 //
 //    }
-//
-//    private static void printInstrumentation(Properties properties) {
-//        Iterator keys = properties.keySet().iterator();
-//        while (keys.hasNext()) {
-//            String key = (String) keys.next();
-//            String property = properties.getProperty(key);
-//            System.out.println(key + " : " + property);
-//        }
-//
-//    }
-//
-//    private static void printActions(List actions) {
-//        for (int i = 0; i < actions.size(); i++) {
-//            String action = (String) actions.get(i);
-//            System.out.println(action);
-//        }
-//    }
-}
