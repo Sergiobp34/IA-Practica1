@@ -10,6 +10,7 @@ import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
 import aima.search.informed.HillClimbingSearch;
+import aima.search.informed.SimulatedAnnealingSearch;
 
 import java.util.Iterator;
 import java.util.List;
@@ -61,6 +62,24 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+// El simulated annealing que teniem a ProbServersDemo. Comentat pq no doni errors de compilació.
+//    private static void SPSimulatedAnnealingSearch(ProbServersBoard SP) {
+//        System.out.println("\nTSP Simulated Annealing  -->");
+//        try {
+//            // Atenció! SA fa servir una altra Successor Function que seria ProbServersSuccesorFunctionSA en comptes de ProbServersSuccesorFunction
+//            Problem problem =  new Problem(SP,new ProbServersSuccesorFunctionSA(), new ProbServersGoalTest(),new ProbServersHeuristicFunction());
+//            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001); // Falta posar els paràmetres que toca
+//            //search.traceOn();
+//            SearchAgent agent = new SearchAgent(problem,search);
+//
+//            System.out.println();
+//            printActions(agent.getActions());
+//            printInstrumentation(agent.getInstrumentation());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();
