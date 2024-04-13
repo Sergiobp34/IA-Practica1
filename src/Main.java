@@ -19,28 +19,54 @@ import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) throws Servers.WrongParametersException {
-        System.out.println("Hello world!");
-        initializationProblem();
-    }
 
-    private static void initializationProblem() throws Servers.WrongParametersException {
+        // Per defecte fer servir els paràmetres de l'experiment 1. Executant amb -e int, indiques l'experiment que vols executar, i et modifica els paràmetres si cal.
         int nserv = 10;
         int nrep = 5;
         int seed = 1234;
-        Servers servers = new Servers(nserv, nrep, seed);
-
         int users = 50;
         int nrequests = 3;
-        Requests requests = new Requests(users, nrequests, seed);
+        int exp = 1;
 
-        System.out.println("servers size: " + servers.size());
-        System.out.println("requests size: " + requests.size());
 
-        ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv);
-        ServersHillClimbing(serversBoard);
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case "-e":
+                    try {
+                        exp = Integer.parseInt(args[++i]);
+                    } catch (NumberFormatException e) {
+                        System.out.println(args[i] + "is not an integer.");
+                        System.exit(0);
+                    }
+                    break;
+            }
+
+            if (exp == 1) {
+                // Experiment 1: Provar diversos conjunts d'operadors
+                // Executar amb un conjunt d'operadors
+                Servers servers = new Servers(nserv, nrep, seed);
+                Requests requests = new Requests(users, nrequests, seed);
+                System.out.println("servers size: " + servers.size());
+                System.out.println("requests size: " + requests.size());
+                ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv);
+                ServersHillClimbing(serversBoard);
+
+                // Executar amb un altre conjunt d'operadors: fer que es pugui passar les opcions com a paràmetres
+
+            } else if (exp == 2) {
+                // Experiment 2: Provar diferents generacions de l'estat inicial. Mateixa configuració que l'experiment 1, però amb el conjunt d'operacions que ha donat millor resultat
+                return;
+            } else if (exp == 3) {
+                // Experiment 3: Amb els paràmetres vencedors de l'experiment 1 i 2, provar diferents paràmetres per Simulated Annealing.
+                return;
+            } else if (exp == 4) {
+                // Experiment 4: Fent servir Hill Climbing i les millors opcions trobades, anar augmentant només el nombre d'usuaris i el nombre de servidor, i observar com varia el temps d'execució.
+                return;
+            }
+        }
     }
 
-    private static void ServersHillClimbing(ProbServersBoard board) {
+    private static void ServersHillClimbing (ProbServersBoard board) {
         System.out.println("\nHill Climbing -->");
         try {
             Problem problem = new Problem(board,
