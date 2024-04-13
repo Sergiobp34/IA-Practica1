@@ -24,13 +24,13 @@ public class Main {
     }
 
     private static void initializationProblem() throws Servers.WrongParametersException {
-        int nserv = 50;
+        int nserv = 10;
         int nrep = 5;
         int seed = 1234;
         Servers servers = new Servers(nserv, nrep, seed);
 
-        int users = 200;
-        int nrequests = 5;
+        int users = 50;
+        int nrequests = 3;
         Requests requests = new Requests(users, nrequests, seed);
 
         System.out.println("servers size: " + servers.size());

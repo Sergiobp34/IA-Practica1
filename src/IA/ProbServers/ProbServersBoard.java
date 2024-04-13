@@ -6,7 +6,7 @@ import IA.DistFS.Servers;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class ProbServersBoard {
+public class ProbServersBoard{
 
     //State data structure
 
@@ -20,8 +20,17 @@ public class ProbServersBoard {
     private int numServers;
     private int numPeticions;
 
+
+    private Servers servs;        //Per fer clone
+    private Requests requ;      //Per fer clone
+
+
+
     //Constructor
     public ProbServersBoard(Servers servers, Requests requests, int nserv) {
+
+        servs = servers;
+        requ = requests;
 
         numServers = nserv;
         numFitxers = servers.size();
@@ -38,7 +47,7 @@ public class ProbServersBoard {
             Set<Integer> locations = servers.fileLocations(i);
             for (Integer location : locations) {                                //location es l'index del servidor
                 FileServer.get(location).add(i);
-                System.out.println("fitxer " + i + " a servidor " + location);
+                //System.out.println("fitxer " + i + " a servidor " + location);
             }
         }
 
@@ -64,7 +73,7 @@ public class ProbServersBoard {
                         Peticions.get(i).add(requestVec);
                         // Sumar el temps d'aquesta petició al total del servidor
                         Temps.set(i, Temps.get(i)+servers.tranmissionTime(i, requests.getRequest(req)[0]));
-                        System.out.println("peticio " + req + " de fitxer " + FileServer.get(i).get(j) + " al servidor " + i);
+                        //System.out.println("peticio " + req + " de fitxer " + FileServer.get(i).get(j) + " al servidor " + i);
                         exit = true;
                         break;
                     }
@@ -73,27 +82,30 @@ public class ProbServersBoard {
         }
 
         // Per imprimir el temps de cada servidor a l'estat inicial
+        /*
         for (int i = 0; i < nserv; ++i) {
             System.out.println("Servidor " + i + ": temps " + Temps.get(i));
         }
+        */
+
     }
 
 
     //Operators
 
-    public void transferPetition(Servers servers, Requests requests, int server1, int peticio1, int server2){
+    public void transferPetition(int server1, Integer[] peticio1, int server2){
         //restar el temps de la peticio1 i eliminar  la peticio1 del server1
-        Temps.set(server1, Temps.get(server1)-servers.tranmissionTime(server1, requests.getRequest(peticio1)[0]));
-        FileServer.get(server1).remove(requests.getRequest(peticio1)[1]);
+        Temps.set(server1, Temps.get(server1)-servs.tranmissionTime(server1, peticio1[0]));
+        FileServer.get(server1).remove(peticio1[1]);
 
         //afegir la peticio1 i sumar el temps de la peticio1 al server2
-        Temps.set(server2, Temps.get(server2)+servers.tranmissionTime(server2, requests.getRequest(peticio1)[0]));
-        FileServer.get(server2).add(requests.getRequest(peticio1)[1]);
+        Temps.set(server2, Temps.get(server2)+servs.tranmissionTime(server2, peticio1[0]));
+        FileServer.get(server2).add(peticio1[1]);
     }
 
-    public void swapPetition(Servers servers, Requests requests, int server1, int petition1, int server2, int petition2){
-        transferPetition(servers, requests, server1, petition1, server2);
-        transferPetition(servers, requests, server2, petition2, server1);
+    public void swapPetition(int server1, Integer[] petition1, int server2, Integer[] petition2){
+        transferPetition(server1, petition1, server2);
+        transferPetition(server2, petition2, server1);
     }
 
 
@@ -153,5 +165,38 @@ public class ProbServersBoard {
             }
         }
     }
+
+
+
+
+    //Funcions auxiliars
+
+    public ArrayList<ArrayList<Integer>> getFileServer(){ return FileServer; }
+
+    public ArrayList<ArrayList<Integer[]>> getPeticions(){ return Peticions; }
+
+    public ArrayList<Integer> getTemps(){ return Temps; }
+
+    @Override
+    public ProbServersBoard clone(){
+        // Crear una nueva instancia de ProbServersBoard
+        ProbServersBoard clone = new ProbServersBoard(this.servs, this.requ, this.numServers);
+
+        // Copiar los valores de los atributos del objeto original a la nueva instancia
+        for (int i = 0; i < this.FileServer.size(); ++i) {
+            clone.FileServer.set(i, new ArrayList<>(this.FileServer.get(i)));
+        }
+
+        for (int i = 0; i < this.Peticions.size(); ++i) {
+            clone.Peticions.set(i, new ArrayList<>(this.Peticions.get(i)));
+        }
+
+        clone.Temps = new ArrayList<>(this.Temps);
+
+        // Devolver la nueva instancia
+        return clone;
+    }
+
+
 
 }
