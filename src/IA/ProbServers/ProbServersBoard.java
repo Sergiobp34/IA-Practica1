@@ -4,6 +4,7 @@ import IA.DistFS.Requests;
 import IA.DistFS.Servers;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Set;
 
 public class ProbServersBoard{
@@ -23,14 +24,16 @@ public class ProbServersBoard{
 
     private Servers servs;        //Per fer clone
     private Requests requ;      //Per fer clone
+    private int opcioInicPriv;
 
 
 
     //Constructor
-    public ProbServersBoard(Servers servers, Requests requests, int nserv) {
+    public ProbServersBoard(Servers servers, Requests requests, int nserv, int opcioInic) {
 
         servs = servers;
         requ = requests;
+        opcioInicPriv = opcioInic;
 
         numServers = nserv;
         numFitxers = servers.size();
@@ -63,23 +66,11 @@ public class ProbServersBoard{
             Temps.add(0);
         }
 
-        for (int req = 0; req < requests.size(); ++req){
-            boolean exit = false;
-            for (int i = 0; i < nserv && !exit; ++i) {
-                for (int j = 0; j < FileServer.get(i).size(); ++j) {
-                    if (requests.getRequest(req)[1] == FileServer.get(i).get(j)) {
-                        Integer[] requestVec = {requests.getRequest(req)[0], requests.getRequest(req)[1]};
-                        // Assignar request a aquell servidor
-                        Peticions.get(i).add(requestVec);
-                        // Sumar el temps d'aquesta petició al total del servidor
-                        Temps.set(i, Temps.get(i)+servers.tranmissionTime(i, requests.getRequest(req)[0]));
-                        //System.out.println("peticio " + req + " de fitxer " + FileServer.get(i).get(j) + " al servidor " + i);
-                        exit = true;
-                        break;
-                    }
-                }
-            }
-        }
+        if(opcioInic == 0) iniciRandom();
+        else if (opcioInic == 1) iniciMillor1();
+        else System.out.println("Paràmetre dolent");
+
+
 
         // Per imprimir el temps de cada servidor a l'estat inicial
         /*
@@ -89,6 +80,45 @@ public class ProbServersBoard{
         */
 
     }
+
+    // Inicialització
+    public void iniciRandom(){
+        for (int req = 0; req < requ.size(); ++req){
+            Set<Integer> disp = servs.fileLocations(requ.getRequest(req)[1]);
+            Random randomNumbers = new Random();
+            Integer ind = randomNumbers.nextInt(disp.size());
+            Integer current=0;
+            for (Integer location : disp) {
+                if (current.equals(ind)){
+                    Peticions.get(location).add(new Integer[]{requ.getRequest(req)[0], requ.getRequest(req)[1]});
+                    Temps.set(location, Temps.get(location)+servs.tranmissionTime(location, requ.getRequest(req)[0]));
+                    break;
+                }
+                ++current;
+            }
+        }
+    }
+
+    public void iniciMillor1(){
+        for (int req = 0; req < requ.size(); ++req){
+            boolean exit = false;
+            for (int i = 0; i < servs.size() && !exit; ++i) { // Aquí servs.size() abans era nserv
+                for (int j = 0; j < FileServer.get(i).size(); ++j) {
+                    if (requ.getRequest(req)[1] == FileServer.get(i).get(j)) {
+                        Integer[] requestVec = {requ.getRequest(req)[0], requ.getRequest(req)[1]};
+                        // Assignar request a aquell servidor
+                        Peticions.get(i).add(requestVec);
+                        // Sumar el temps d'aquesta petició al total del servidor
+                        Temps.set(i, Temps.get(i)+servs.tranmissionTime(i, requ.getRequest(req)[0]));
+                        //System.out.println("peticio " + req + " de fitxer " + FileServer.get(i).get(j) + " al servidor " + i);
+                        exit = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 
 
     //Operators
@@ -186,7 +216,7 @@ public class ProbServersBoard{
     @Override
     public ProbServersBoard clone(){
         // Crear una nueva instancia de ProbServersBoard
-        ProbServersBoard clone = new ProbServersBoard(this.servs, this.requ, this.numServers);
+        ProbServersBoard clone = new ProbServersBoard(this.servs, this.requ, this.numServers, this.opcioInicPriv);
 
         // Copiar los valores de los atributos del objeto original a la nueva instancia
         for (int i = 0; i < this.FileServer.size(); ++i) {

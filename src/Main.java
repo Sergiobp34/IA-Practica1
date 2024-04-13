@@ -45,7 +45,7 @@ public class Main {
                 Requests requests = new Requests(users, nrequests, seed);
                 System.out.println("servers size: " + servers.size());
                 System.out.println("requests size: " + requests.size());
-                ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv);
+                ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
 
                 // Executar amb només transfer
                 ServersHillClimbing(serversBoard, 0, 1);
@@ -58,6 +58,20 @@ public class Main {
 
             } else if (exp == 2) {
                 // Experiment 2: Provar diferents generacions de l'estat inicial. Mateixa configuració que l'experiment 1, però amb el conjunt d'operacions que ha donat millor resultat
+
+                Servers servers = new Servers(nserv, nrep, seed);
+                Requests requests = new Requests(users, nrequests, seed);
+                System.out.println("servers size: " + servers.size());
+                System.out.println("requests size: " + requests.size());
+
+                // Generació d'estat inicial aleatòria
+                ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 0);
+                ServersHillClimbing(serversBoard, 3, 1);
+
+                // Generació d'estat inicial millorada 1
+                ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 1);
+                ServersHillClimbing(serversBoard2, 3, 1);
+
                 return;
             } else if (exp == 3) {
                 // Experiment 3: Amb els paràmetres vencedors de l'experiment 1 i 2, provar diferents paràmetres per Simulated Annealing.
