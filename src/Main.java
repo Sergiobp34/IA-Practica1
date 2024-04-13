@@ -1,10 +1,7 @@
 import IA.DistFS.Servers;
 import IA.DistFS.Requests;
 
-import IA.ProbServers.ProbServersBoard;
-import IA.ProbServers.ProbServersGoalTest;
-import IA.ProbServers.ProbServersHeuristicFunction1;
-import IA.ProbServers.ProbServersSuccesorFunctionHC;
+import IA.ProbServers.*;
 
 import aima.search.framework.Problem;
 import aima.search.framework.Search;
@@ -49,9 +46,15 @@ public class Main {
                 System.out.println("servers size: " + servers.size());
                 System.out.println("requests size: " + requests.size());
                 ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv);
-                ServersHillClimbing(serversBoard);
 
-                // Executar amb un altre conjunt d'operadors: fer que es pugui passar les opcions com a paràmetres
+                // Executar amb només transfer
+                ServersHillClimbing(serversBoard, 0, 1);
+
+                // Executar amb només swap
+                ServersHillClimbing(serversBoard, 1, 1);
+
+                // Executar amb els dos operadors
+                ServersHillClimbing(serversBoard, 3, 1);
 
             } else if (exp == 2) {
                 // Experiment 2: Provar diferents generacions de l'estat inicial. Mateixa configuració que l'experiment 1, però amb el conjunt d'operacions que ha donat millor resultat
@@ -66,13 +69,21 @@ public class Main {
         }
     }
 
-    private static void ServersHillClimbing (ProbServersBoard board) {
+    private static void ServersHillClimbing (ProbServersBoard board, Integer op, Integer he) {
         System.out.println("\nHill Climbing -->");
         try {
-            Problem problem = new Problem(board,
-                    new ProbServersSuccesorFunctionHC(),
-                    new ProbServersGoalTest(),
-                    new ProbServersHeuristicFunction1());
+            Problem problem;
+            if (he==1) {
+                problem = new Problem(board,
+                        new ProbServersSuccesorFunctionHC(op),
+                        new ProbServersGoalTest(),
+                        new ProbServersHeuristicFunction1());
+            } else if(he==2){
+                problem = new Problem(board,
+                        new ProbServersSuccesorFunctionHC(op),
+                        new ProbServersGoalTest(),
+                        new ProbServersHeuristicFunction2());
+            } else { return; }
             Search search = new HillClimbingSearch();
             SearchAgent searchAgent = new SearchAgent(problem, search);
 

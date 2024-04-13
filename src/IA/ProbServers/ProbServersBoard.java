@@ -96,11 +96,13 @@ public class ProbServersBoard{
     public void transferPetition(int server1, Integer[] peticio1, int server2){
         //restar el temps de la peticio1 i eliminar  la peticio1 del server1
         Temps.set(server1, Temps.get(server1)-servs.tranmissionTime(server1, peticio1[0]));
-        FileServer.get(server1).remove(peticio1[1]);
+        //FileServer.get(server1).remove(peticio1[1]);
+        Peticions.get(server1).remove(peticio1);
 
         //afegir la peticio1 i sumar el temps de la peticio1 al server2
         Temps.set(server2, Temps.get(server2)+servs.tranmissionTime(server2, peticio1[0]));
-        FileServer.get(server2).add(peticio1[1]);
+        //FileServer.get(server2).add(peticio1[1]);
+        Peticions.get(server2).add(peticio1);
     }
 
     public void swapPetition(int server1, Integer[] petition1, int server2, Integer[] petition2){
@@ -127,17 +129,21 @@ public class ProbServersBoard{
 
         //penalitzacio1: rang m que ha d'estar entre [m-1,m+1]        sumem 30000ms per servidor que no estigui al rang
 
-        int numServersPenal = 0;
+        int numPenal = 0;
         int[] mLim = new int[2];
-        mLim[0] = (numFitxers/numServers)-1;
-        mLim[1] = (numFitxers/numServers)+1;
+        mLim[0] = (numPeticions/numServers)-1;
+        mLim[1] = (numPeticions/numServers)+1;
 
-        for (ArrayList<Integer> server : FileServer) {
-            if (server.size() < mLim[0]) ++numServersPenal;
-            if (server.size() > mLim[1]) ++numServersPenal;
+        for (ArrayList<Integer[]> server : Peticions) {
+            if (server.size() < mLim[0]){
+                numPenal-=server.size()-(numPeticions/numServers);
+            }
+            if (server.size() > mLim[1]){
+                numPenal+=server.size()-(numPeticions/numServers);
+            }
         }
 
-        double penalitzacio1 = numServersPenal * 30000;
+        double penalitzacio1 = numPenal * 30000;
 
         //penalitzacio2: diferencia de temps entre mes gran i mes petit       sumem 70000ms*(diferencia/1000)
         int min= Integer.MAX_VALUE;
