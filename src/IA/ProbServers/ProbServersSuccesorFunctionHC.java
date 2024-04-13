@@ -41,10 +41,13 @@ public class ProbServersSuccesorFunctionHC implements SuccessorFunction{
         for(int s1=0; s1<estat.getFileServer().size(); ++s1){
             for(int p=0; p<estat.getPeticions().get(s1).size(); ++p){
                 for(int s2=0; s2<estat.getFileServer().size(); ++s2){
-                    if(s2 != s1){
-                        ProbServersBoard clone = estat.clone();
-                        clone.transferPetition(s1, estat.getPeticions().get(s1).get(p), s2);
-                        ret.add(genSuccessor("TRANSFER", clone));
+                    for (int d=0; d<estat.getFileServer().get(s2).size(); ++d){
+                        // No pot ser mateix servidor i el servidor ha de tindre disponible aquell fitxer
+                        if (s2!=s1 && estat.getFileServer().get(s2).get(d).equals(estat.getPeticions().get(s1).get(p)[1])){
+                            ProbServersBoard clone = estat.clone();
+                            clone.transferPetition(s1, estat.getPeticions().get(s1).get(p), s2);
+                            ret.add(genSuccessor("TRANSFER", clone));
+                        }
                     }
                 }
             }
