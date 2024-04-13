@@ -73,11 +73,11 @@ public class ProbServersBoard{
 
 
         // Per imprimir el temps de cada servidor a l'estat inicial
-        /*
+
         for (int i = 0; i < nserv; ++i) {
             System.out.println("Servidor " + i + ": temps " + Temps.get(i));
         }
-        */
+
 
     }
 
@@ -102,7 +102,7 @@ public class ProbServersBoard{
     public void iniciMillor1(){
         for (int req = 0; req < requ.size(); ++req){
             boolean exit = false;
-            for (int i = 0; i < servs.size() && !exit; ++i) { // Aquí servs.size() abans era nserv
+            for (int i = 0; i < numServers && !exit; ++i) { // Aquí servs.size() abans era nserv
                 for (int j = 0; j < FileServer.get(i).size(); ++j) {
                     if (requ.getRequest(req)[1] == FileServer.get(i).get(j)) {
                         Integer[] requestVec = {requ.getRequest(req)[0], requ.getRequest(req)[1]};
