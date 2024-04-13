@@ -54,7 +54,7 @@ public class Main {
                 ServersHillClimbing(serversBoard, 1, 1);
 
                 // Executar amb els dos operadors
-                ServersHillClimbing(serversBoard, 3, 1);
+                ServersHillClimbing(serversBoard, 2, 1);
 
             } else if (exp == 2) {
                 // Experiment 2: Provar diferents generacions de l'estat inicial. Mateixa configuració que l'experiment 1, però amb el conjunt d'operacions que ha donat millor resultat
@@ -66,11 +66,11 @@ public class Main {
 
                 // Generació d'estat inicial aleatòria
                 ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 0);
-                ServersHillClimbing(serversBoard, 3, 1);
+                ServersHillClimbing(serversBoard, 2, 1);
 
                 // Generació d'estat inicial millorada 1
                 ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 1);
-                ServersHillClimbing(serversBoard2, 3, 1);
+                ServersHillClimbing(serversBoard2, 2, 1);
 
                 return;
             } else if (exp == 3) {

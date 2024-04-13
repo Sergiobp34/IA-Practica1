@@ -74,9 +74,10 @@ public class ProbServersBoard{
 
         // Per imprimir el temps de cada servidor a l'estat inicial
 
-        for (int i = 0; i < nserv; ++i) {
+        /*for (int i = 0; i < nserv; ++i) {
             System.out.println("Servidor " + i + ": temps " + Temps.get(i));
         }
+         */
 
 
     }
@@ -124,14 +125,12 @@ public class ProbServersBoard{
     //Operators
 
     public void transferPetition(int server1, Integer[] peticio1, int server2){
-        //restar el temps de la peticio1 i eliminar  la peticio1 del server1
+        //restar el temps de la peticio1 i eliminar la peticio1 del server1
         Temps.set(server1, Temps.get(server1)-servs.tranmissionTime(server1, peticio1[0]));
-        //FileServer.get(server1).remove(peticio1[1]);
         Peticions.get(server1).remove(peticio1);
 
         //afegir la peticio1 i sumar el temps de la peticio1 al server2
         Temps.set(server2, Temps.get(server2)+servs.tranmissionTime(server2, peticio1[0]));
-        //FileServer.get(server2).add(peticio1[1]);
         Peticions.get(server2).add(peticio1);
     }
 
