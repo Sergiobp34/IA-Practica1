@@ -212,6 +212,8 @@ public class ProbServersBoard{
 
     public ArrayList<Integer> getTemps(){ return Temps; }
 
+    public Servers getServers(){ return servs; }
+
     @Override
     public ProbServersBoard clone(){
         // Crear una nueva instancia de ProbServersBoard
