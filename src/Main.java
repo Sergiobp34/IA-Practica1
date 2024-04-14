@@ -87,6 +87,32 @@ public class Main {
                 return;
             } else if (exp == 4) {
                 // Experiment 4: Fent servir Hill Climbing i les millors opcions trobades, anar augmentant només el nombre d'usuaris i el nombre de servidor, i observar com varia el temps d'execució.
+
+//                // Augmentar usuaris
+//                nserv = 50;
+//                nrep = 5;
+//                users = 100;
+//                nrequests = 3;
+//                // Provar diferents nombres d'iteracions, 5 per exemple
+//                for (int iter =0; iter<10; ++iter){
+//                    // Fer board
+//                    // Fer HC
+//                    // Incrementar paràmetres
+//                    users+=100;
+//                }
+//
+//                // Augmentar servidors
+//                nserv = 50;
+//                nrep = 5;
+//                users = 200;
+//                nrequests = 3;
+//                // Provar diferents nombres d'iteracions, 5 per exemple
+//                for (int iter =0; iter<10; ++iter){
+//                    // Fer board
+//                    // Fer HC
+//                    // Incrementar paràmetres
+//                    nserv+=50;
+//                }
                 return;
             }
         }
