@@ -115,19 +115,28 @@ public class ProbServersBoard{
     public void iniciMillor2(){
         for (int req = 0; req < requ.size(); ++req){
             boolean exit = false;
+            // lloc on guardar el servidor més ràpid
+            int millorTemps=Integer.MAX_VALUE;
+            int millorServ=0;
             for (int i = 0; i < numServers && !exit; ++i) { // Aquí servs.size() abans era nserv
-                // lloc on guardar el servidor més ràpid
                 for (int j = 0; j < FileServer.get(i).size(); ++j) {
                     if (requ.getRequest(req)[1] == FileServer.get(i).get(j)) {
 
                         // si és més ràpid passa a ser el més ràpid
+                        if (servs.tranmissionTime(i, requ.getRequest(req)[0])<millorTemps){
+                            millorTemps=servs.tranmissionTime(i, requ.getRequest(req)[0]);
+                            millorServ=i;
+                        }
 
                         exit = true;
                         break;
                     }
                 }
-                // assignar request al servidor més ràpid
             }
+            // assignar request al servidor més ràpid
+            Integer[] requestVec = {requ.getRequest(req)[0], requ.getRequest(req)[1]};
+            Peticions.get(millorServ).add(requestVec);
+            Temps.set(millorServ, Temps.get(millorServ)+servs.tranmissionTime(millorServ, requ.getRequest(req)[0]));
         }
     }
 
