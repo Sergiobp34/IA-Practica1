@@ -75,6 +75,15 @@ public class Main {
                 return;
             } else if (exp == 3) {
                 // Experiment 3: Amb els paràmetres vencedors de l'experiment 1 i 2, provar diferents paràmetres per Simulated Annealing.
+
+                Servers servers = new Servers(nserv, nrep, seed);
+                Requests requests = new Requests(users, nrequests, seed);
+                System.out.println("servers size: " + servers.size());
+                System.out.println("requests size: " + requests.size());
+                ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
+
+                SPSimulatedAnnealingSearch(serversBoard);
+
                 return;
             } else if (exp == 4) {
                 // Experiment 4: Fent servir Hill Climbing i les millors opcions trobades, anar augmentant només el nombre d'usuaris i el nombre de servidor, i observar com varia el temps d'execució.
@@ -114,23 +123,26 @@ public class Main {
         }
     }
 
-// El simulated annealing que teniem a ProbServersDemo. Comentat pq no doni errors de compilació.
-//    private static void SPSimulatedAnnealingSearch(ProbServersBoard SP) {
-//        System.out.println("\nTSP Simulated Annealing  -->");
-//        try {
-//            // Atenció! SA fa servir una altra Successor Function que seria ProbServersSuccesorFunctionSA en comptes de ProbServersSuccesorFunction
-//            Problem problem =  new Problem(SP,new ProbServersSuccesorFunctionSA(), new ProbServersGoalTest(),new ProbServersHeuristicFunction());
-//            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001); // Falta posar els paràmetres que toca
-//            //search.traceOn();
-//            SearchAgent agent = new SearchAgent(problem,search);
-//
-//            System.out.println();
-//            printActions(agent.getActions());
-//            printInstrumentation(agent.getInstrumentation());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private static void SPSimulatedAnnealingSearch(ProbServersBoard SP) {
+        System.out.println("\nTSP Simulated Annealing  -->");
+        try {
+            // Atenció! SA fa servir una altra Successor Function que seria ProbServersSuccesorFunctionSA en comptes de ProbServersSuccesorFunction
+            Problem problem =  new Problem(SP,new ProbServersSuccesorFunctionSA(), new ProbServersGoalTest(),new ProbServersHeuristicFunction1());
+            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001); // Falta posar els paràmetres que toca
+            search.traceOn();
+            SearchAgent agent = new SearchAgent(problem,search);
+
+            //Imprimir estat
+            ProbServersBoard nouBoard = (ProbServersBoard) search.getGoalState();
+            nouBoard.imprimirBoard(); //Fer print board d'alguna manera
+
+            System.out.println();
+            printActions(agent.getActions());
+            printInstrumentation(agent.getInstrumentation());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();

@@ -15,8 +15,7 @@ public class ProbServersSuccesorFunctionSA implements SuccessorFunction {
     static private Integer operador;
 
     //Constructora amb les inicialitzacions
-    public ProbServersSuccesorFunctionSA(Integer op) {
-        operador=op;
+    public ProbServersSuccesorFunctionSA() {
         if (h1 == null)
             h1 = new ProbServersHeuristicFunction1();       //per debugging
 
@@ -50,6 +49,11 @@ public class ProbServersSuccesorFunctionSA implements SuccessorFunction {
 
                 Integer[] p1;
                 s1 = rand.nextInt(estat.getPeticions().size());
+
+                while(estat.getPeticions().get(s1).isEmpty()){
+                    s1 = rand.nextInt(estat.getPeticions().size());
+                }
+
                 int randP = rand.nextInt(estat.getPeticions().get(s1).size());
                 p1 = estat.getPeticions().get(s1).get(randP);
 
@@ -70,7 +74,7 @@ public class ProbServersSuccesorFunctionSA implements SuccessorFunction {
 
                     current=0;
                     for (Integer location : candidatsS2) {
-                        if (current.equals(aux)){            //aux funciona com a Index
+                        if (current.equals(aux)){           //aux funciona com a Index
                             s2 = location;                  //Assignem el servidor a s2
                             break;
                         }
@@ -83,10 +87,17 @@ public class ProbServersSuccesorFunctionSA implements SuccessorFunction {
             }
             else{                                 //Fem SWAP
 
-                int s1, s2; s1 = -1; s2 = -1;
 
-                Integer[] p1, p2;
+
+                int s1, s2; s2 = 0;
+
+                Integer[] p1;
                 s1 = rand.nextInt(estat.getPeticions().size());
+
+                while(estat.getPeticions().get(s1).isEmpty()){
+                    s1 = rand.nextInt(estat.getPeticions().size());
+                }
+
                 int randP = rand.nextInt(estat.getPeticions().get(s1).size());
                 p1 = estat.getPeticions().get(s1).get(randP);
 
@@ -107,7 +118,7 @@ public class ProbServersSuccesorFunctionSA implements SuccessorFunction {
 
                     current=0;
                     for (Integer location : candidatsS2) {
-                        if (current.equals(aux)){            //aux funciona com a Index
+                        if (current.equals(aux)){           //aux funciona com a Index
                             s2 = location;                  //Assignem el servidor a s2
                             break;
                         }
@@ -115,8 +126,18 @@ public class ProbServersSuccesorFunctionSA implements SuccessorFunction {
                     }
                 }
 
-                clone.swapPetition(s1, p1, s2, p2);
-                s = "SWAP";
+                clone.transferPetition(s1, p1, s2);
+
+                if(estat.getPeticions().get(s2).isEmpty()){
+                    s = "TRANSFER";
+                }
+                else {
+                    int randP2 = rand.nextInt(estat.getPeticions().get(s2).size());
+                    Integer[] p2 = estat.getPeticions().get(s2).get(randP2);
+                    clone.transferPetition(s2, p2, s1);
+
+                    s = "SWAP";
+                }
             }
 
             retval.add(new Successor(s,clone));
