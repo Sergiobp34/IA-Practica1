@@ -163,7 +163,6 @@ public class Main {
             nouBoard.imprimirBoard(); //Fer print board d'alguna manera
 
             System.out.println();
-            printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {
             e.printStackTrace();
