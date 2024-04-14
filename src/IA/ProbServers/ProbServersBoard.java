@@ -23,7 +23,7 @@ public class ProbServersBoard{
 
 
     private Servers servs;        //Per fer clone
-    private Requests requ;      //Per fer clone
+    private Requests requ;        //Per fer clone
     private int opcioInicPriv;
 
 
@@ -66,19 +66,11 @@ public class ProbServersBoard{
             Temps.add(0);
         }
 
-        if(opcioInic == 0) iniciRandom();
-        else if (opcioInic == 1) iniciMillor1();
-        else System.out.println("Paràmetre dolent");
-
-
-
-        // Per imprimir el temps de cada servidor a l'estat inicial
-
-        /*for (int i = 0; i < nserv; ++i) {
-            System.out.println("Servidor " + i + ": temps " + Temps.get(i));
+        if(opcioInic != -1) {
+            if (opcioInic == 0) iniciRandom();
+            else if (opcioInic == 1) iniciMillor1();
+            else System.out.println("Paràmetre dolent");
         }
-         */
-
 
     }
 
@@ -217,7 +209,7 @@ public class ProbServersBoard{
     @Override
     public ProbServersBoard clone(){
         // Crear una nueva instancia de ProbServersBoard
-        ProbServersBoard clone = new ProbServersBoard(this.servs, this.requ, this.numServers, this.opcioInicPriv);
+        ProbServersBoard clone = new ProbServersBoard(this.servs, this.requ, this.numServers, -1);
 
         // Copiar los valores de los atributos del objeto original a la nueva instancia
         for (int i = 0; i < this.FileServer.size(); ++i) {
