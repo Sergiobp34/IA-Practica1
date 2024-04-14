@@ -41,6 +41,13 @@ public class Main {
 
             if (exp == 1) {
                 // Experiment 1: Provar diversos conjunts d'operadors
+
+                // Paràmetres inicials
+                nserv = 50;
+                nrep = 5;
+                users = 200;
+                nrequests = 5;
+
                 for(int reps=0; reps<10; ++reps) {
                     // Random seed
                     Random randomNumbers = new Random();
@@ -65,6 +72,13 @@ public class Main {
 
             } else if (exp == 2) {
                 // Experiment 2: Provar diferents generacions de l'estat inicial. Mateixa configuració que l'experiment 1, però amb el conjunt d'operacions que ha donat millor resultat
+
+                // Paràmetres inicials
+                nserv = 50;
+                nrep = 5;
+                users = 200;
+                nrequests = 5;
+
                 for(int reps=0; reps<10; ++reps) {
                     // Random seed
                     Random randomNumbers = new Random();
