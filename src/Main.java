@@ -12,6 +12,7 @@ import aima.search.informed.SimulatedAnnealingSearch;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 
 public class Main {
@@ -40,50 +41,65 @@ public class Main {
 
             if (exp == 1) {
                 // Experiment 1: Provar diversos conjunts d'operadors
-                // Executar amb un conjunt d'operadors
-                Servers servers = new Servers(nserv, nrep, seed);
-                Requests requests = new Requests(users, nrequests, seed);
-                System.out.println("servers size: " + servers.size());
-                System.out.println("requests size: " + requests.size());
-                ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
+                for(int reps=0; reps<10; ++reps) {
+                    // Random seed
+                    Random randomNumbers = new Random();
+                    seed= randomNumbers.nextInt(10000);
 
-                // Executar amb només transfer
-                ServersHillClimbing(serversBoard, 0, 1);
+                    // Executar amb un conjunt d'operadors
+                    Servers servers = new Servers(nserv, nrep, seed);
+                    Requests requests = new Requests(users, nrequests, seed);
+                    System.out.println("servers size: " + servers.size());
+                    System.out.println("requests size: " + requests.size());
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
 
-                // Executar amb només swap
-                ServersHillClimbing(serversBoard, 1, 1);
+                    // Executar amb només transfer
+                    ServersHillClimbing(serversBoard, 0, 1);
 
-                // Executar amb els dos operadors
-                ServersHillClimbing(serversBoard, 2, 1);
+                    // Executar amb només swap
+                    ServersHillClimbing(serversBoard, 1, 1);
+
+                    // Executar amb els dos operadors
+                    ServersHillClimbing(serversBoard, 2, 1);
+                }
 
             } else if (exp == 2) {
                 // Experiment 2: Provar diferents generacions de l'estat inicial. Mateixa configuració que l'experiment 1, però amb el conjunt d'operacions que ha donat millor resultat
+                for(int reps=0; reps<10; ++reps) {
+                    // Random seed
+                    Random randomNumbers = new Random();
+                    seed= randomNumbers.nextInt(10000);
 
-                Servers servers = new Servers(nserv, nrep, seed);
-                Requests requests = new Requests(users, nrequests, seed);
-                System.out.println("servers size: " + servers.size());
-                System.out.println("requests size: " + requests.size());
+                    Servers servers = new Servers(nserv, nrep, seed);
+                    Requests requests = new Requests(users, nrequests, seed);
+                    System.out.println("servers size: " + servers.size());
+                    System.out.println("requests size: " + requests.size());
 
-                // Generació d'estat inicial aleatòria
-                ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 0);
-                ServersHillClimbing(serversBoard, 2, 1);
+                    // Generació d'estat inicial aleatòria
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 0);
+                    ServersHillClimbing(serversBoard, 2, 1);
 
-                // Generació d'estat inicial millorada 1
-                ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 1);
-                ServersHillClimbing(serversBoard2, 2, 1);
+                    // Generació d'estat inicial millorada 1
+                    ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 1);
+                    ServersHillClimbing(serversBoard2, 2, 1);
+                }
 
                 return;
             } else if (exp == 3) {
                 // Experiment 3: Amb els paràmetres vencedors de l'experiment 1 i 2, provar diferents paràmetres per Simulated Annealing.
+                for(int reps=0; reps<10; ++reps) {
+                    Random randomNumbers = new Random();
+                    seed= randomNumbers.nextInt(10000);
 
-                Servers servers = new Servers(nserv, nrep, seed);
-                Requests requests = new Requests(users, nrequests, seed);
-                System.out.println("servers size: " + servers.size());
-                System.out.println("requests size: " + requests.size());
-                ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
+                    Servers servers = new Servers(nserv, nrep, seed);
+                    Requests requests = new Requests(users, nrequests, seed);
+                    System.out.println("servers size: " + servers.size());
+                    System.out.println("requests size: " + requests.size());
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
 
-                SPSimulatedAnnealingSearch(serversBoard);
-
+                    // S'hauria de passar diferents paràmetres de SA, que és el que volem comparar
+                    SPSimulatedAnnealingSearch(serversBoard);
+                }
                 return;
             } else if (exp == 4) {
                 // Experiment 4: Fent servir Hill Climbing i les millors opcions trobades, anar augmentant només el nombre d'usuaris i el nombre de servidor, i observar com varia el temps d'execució.
@@ -118,7 +134,53 @@ public class Main {
                 // Experiment 5: Fent servir Hill Climbing diferencia entre el temps total de transmissió i el temps per trobar la solució.
                 // I experimentar amb les penalitzacions del h2()
 
+                // Paràmetres inicials
+                nserv = 50;
+                nrep = 5;
+                users = 200;
+                nrequests = 5;
 
+                // Per heurística 1
+                for(int reps=0; reps<10; ++reps) {
+                    // Random seed
+                    Random randomNumbers = new Random();
+                    seed= randomNumbers.nextInt(10000);
+
+                    long time = System.currentTimeMillis();
+                    // Executar amb un conjunt d'operadors
+                    Servers servers = new Servers(nserv, nrep, seed);
+                    Requests requests = new Requests(users, nrequests, seed);
+                    System.out.println("servers size: " + servers.size());
+                    System.out.println("requests size: " + requests.size());
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
+
+                    // Executar amb els dos operadors i HC
+                    ServersHillClimbing(serversBoard, 2, 1);
+
+                    time = System.currentTimeMillis() - time;
+                    System.out.println("Temps d'execució: " + time + " ms");
+                }
+
+                // Per heurística 2
+                for(int reps=0; reps<10; ++reps) {
+                    // Random seed
+                    Random randomNumbers = new Random();
+                    seed= randomNumbers.nextInt(10000);
+
+                    long time = System.currentTimeMillis();
+                    // Executar amb un conjunt d'operadors
+                    Servers servers = new Servers(nserv, nrep, seed);
+                    Requests requests = new Requests(users, nrequests, seed);
+                    System.out.println("servers size: " + servers.size());
+                    System.out.println("requests size: " + requests.size());
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
+
+                    // Executar amb els dos operadors i HC
+                    ServersHillClimbing(serversBoard, 2, 2);
+
+                    time = System.currentTimeMillis() - time;
+                    System.out.println("Temps d'execució: " + time + " ms");
+                }
 
             } else if (exp == 6) {
                 // Experiment 6: Fent servir Simmulated annealing i les mateixes heurístiques que exp. 5 entre el temps total de
