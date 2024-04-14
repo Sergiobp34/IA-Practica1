@@ -101,6 +101,13 @@ public class Main {
                 return;
             } else if (exp == 3) {
                 // Experiment 3: Amb els paràmetres vencedors de l'experiment 1 i 2, provar diferents paràmetres per Simulated Annealing.
+
+                // Paràmetres inicials
+                nserv = 50;
+                nrep = 5;
+                users = 200;
+                nrequests = 5;
+
                 for(int reps=0; reps<10; ++reps) {
                     Random randomNumbers = new Random();
                     seed= randomNumbers.nextInt(10000);
@@ -109,10 +116,10 @@ public class Main {
                     Requests requests = new Requests(users, nrequests, seed);
                     System.out.println("servers size: " + servers.size());
                     System.out.println("requests size: " + requests.size());
-                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
 
+                    ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 2);
                     // S'hauria de passar diferents paràmetres de SA, que és el que volem comparar
-                    SPSimulatedAnnealingSearch(serversBoard);
+                    SPSimulatedAnnealingSearch(serversBoard2);
                 }
                 return;
             } else if (exp == 4) {
@@ -252,10 +259,12 @@ public class Main {
 
             //Imprimir estat
             ProbServersBoard nouBoard = (ProbServersBoard) search.getGoalState();
-            nouBoard.imprimirBoard(); //Fer print board d'alguna manera
+            //nouBoard.imprimirBoard(); //Fer print board d'alguna manera
+
+            System.out.println(nouBoard.getMaxTime());
 
             System.out.println();
-            printInstrumentation(agent.getInstrumentation());
+            //printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {
             e.printStackTrace();
         }
