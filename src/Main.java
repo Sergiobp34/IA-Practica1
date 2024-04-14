@@ -43,10 +43,10 @@ public class Main {
                 // Experiment 1: Provar diversos conjunts d'operadors
 
                 // Paràmetres inicials
-                nserv = 50;
+                nserv = 8;
                 nrep = 5;
-                users = 200;
-                nrequests = 5;
+                users = 50;
+                nrequests = 3;
 
                 for(int reps=0; reps<10; ++reps) {
                     // Random seed
@@ -58,7 +58,7 @@ public class Main {
                     Requests requests = new Requests(users, nrequests, seed);
                     System.out.println("servers size: " + servers.size());
                     System.out.println("requests size: " + requests.size());
-                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 2);
 
                     // Executar amb només transfer
                     ServersHillClimbing(serversBoard, 0, 1);

@@ -69,6 +69,7 @@ public class ProbServersBoard{
         if(opcioInic != -1) {
             if (opcioInic == 0) iniciRandom();
             else if (opcioInic == 1) iniciMillor1();
+            else if (opcioInic == 2) iniciMillor2();
             else System.out.println("Paràmetre dolent");
         }
 
