@@ -130,11 +130,21 @@ public class Main {
                 nrep = 5;
                 users = 100;
                 nrequests = 3;
-                // Provar diferents nombres d'iteracions, 5 per exemple
+                // No Hill Climbing
                 for (int iter =0; iter<10; ++iter){
-                    // Fer board
-                    // Fer HC
-                    // Incrementar paràmetres
+                    for(int reps=0; reps<10; ++reps) {
+                        Random randomNumbers = new Random();
+                        seed= randomNumbers.nextInt(10000);
+
+                        Servers servers = new Servers(nserv, nrep, seed);
+                        Requests requests = new Requests(users, nrequests, seed);
+                        System.out.println("servers size: " + servers.size());
+                        System.out.println("requests size: " + requests.size());
+
+                        ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 2);
+                        // S'hauria de passar diferents paràmetres de SA, que és el que volem comparar
+                        SPSimulatedAnnealingSearch(serversBoard2);
+                    }
                     users+=100;
                 }
 
@@ -145,9 +155,19 @@ public class Main {
                 nrequests = 3;
                 // Provar diferents nombres d'iteracions, 5 per exemple
                 for (int iter =0; iter<10; ++iter){
-                    // Fer board
-                    // Fer HC
-                    // Incrementar paràmetres
+                    for(int reps=0; reps<10; ++reps) {
+                        Random randomNumbers = new Random();
+                        seed= randomNumbers.nextInt(10000);
+
+                        Servers servers = new Servers(nserv, nrep, seed);
+                        Requests requests = new Requests(users, nrequests, seed);
+                        System.out.println("servers size: " + servers.size());
+                        System.out.println("requests size: " + requests.size());
+
+                        ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 2);
+                        // S'hauria de passar diferents paràmetres de SA, que és el que volem comparar
+                        SPSimulatedAnnealingSearch(serversBoard2);
+                    }
                     nserv+=50;
                 }
                 return;
