@@ -43,7 +43,7 @@ public class Main {
                 // Experiment 1: Provar diversos conjunts d'operadors
 
                 // Paràmetres inicials
-                nserv = 8;
+                nserv = 10;
                 nrep = 5;
                 users = 50;
                 nrequests = 3;
