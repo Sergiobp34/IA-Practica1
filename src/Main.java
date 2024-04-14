@@ -74,10 +74,10 @@ public class Main {
                 // Experiment 2: Provar diferents generacions de l'estat inicial. Mateixa configuració que l'experiment 1, però amb el conjunt d'operacions que ha donat millor resultat
 
                 // Paràmetres inicials
-                nserv = 50;
+                nserv = 10;
                 nrep = 5;
-                users = 200;
-                nrequests = 5;
+                users = 50;
+                nrequests = 3;
 
                 for(int reps=0; reps<10; ++reps) {
                     // Random seed
@@ -93,8 +93,8 @@ public class Main {
                     ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 0);
                     ServersHillClimbing(serversBoard, 2, 1);
 
-                    // Generació d'estat inicial millorada 1
-                    ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 1);
+                    // Generació d'estat inicial millorada 2
+                    ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 2);
                     ServersHillClimbing(serversBoard2, 2, 1);
                 }
 
