@@ -88,32 +88,47 @@ public class Main {
             } else if (exp == 4) {
                 // Experiment 4: Fent servir Hill Climbing i les millors opcions trobades, anar augmentant només el nombre d'usuaris i el nombre de servidor, i observar com varia el temps d'execució.
 
-//                // Augmentar usuaris
-//                nserv = 50;
-//                nrep = 5;
-//                users = 100;
-//                nrequests = 3;
-//                // Provar diferents nombres d'iteracions, 5 per exemple
-//                for (int iter =0; iter<10; ++iter){
-//                    // Fer board
-//                    // Fer HC
-//                    // Incrementar paràmetres
-//                    users+=100;
-//                }
-//
-//                // Augmentar servidors
-//                nserv = 50;
-//                nrep = 5;
-//                users = 200;
-//                nrequests = 3;
-//                // Provar diferents nombres d'iteracions, 5 per exemple
-//                for (int iter =0; iter<10; ++iter){
-//                    // Fer board
-//                    // Fer HC
-//                    // Incrementar paràmetres
-//                    nserv+=50;
-//                }
+                // Augmentar usuaris
+                nserv = 50;
+                nrep = 5;
+                users = 100;
+                nrequests = 3;
+                // Provar diferents nombres d'iteracions, 5 per exemple
+                for (int iter =0; iter<10; ++iter){
+                    // Fer board
+                    // Fer HC
+                    // Incrementar paràmetres
+                    users+=100;
+                }
+
+                // Augmentar servidors
+                nserv = 50;
+                nrep = 5;
+                users = 200;
+                nrequests = 3;
+                // Provar diferents nombres d'iteracions, 5 per exemple
+                for (int iter =0; iter<10; ++iter){
+                    // Fer board
+                    // Fer HC
+                    // Incrementar paràmetres
+                    nserv+=50;
+                }
                 return;
+            } else if (exp == 5) {
+                // Experiment 5: Fent servir Hill Climbing diferencia entre el temps total de transmissió i el temps per trobar la solució.
+                // I experimentar amb les penalitzacions del h2()
+
+
+
+            } else if (exp == 6) {
+                // Experiment 6: Fent servir Simmulated annealing i les mateixes heurístiques que exp. 5 entre el temps total de
+                // transmissió i el temps per trobar la solució.
+
+
+
+            } else if (exp == 7) {
+                // Experiment 7: Fent servir HC anar augmentant les replicacions de 5 en 5, desde 5 fins 25.
+
             }
         }
     }
@@ -186,36 +201,3 @@ public class Main {
         }
     }
 }
-
-//    Main anterior, guardat per si fa falta
-//    public static void main(String[] args) throws Exception{
-//        /**
-//         *  For a problem to be solvable:
-//         *    count(0,prob) % 2 == count(0,sol) %2
-//         */
-//        int [] prob = new int []{1 ,0, 1, 1, 0};
-//
-//        ProbServersBoard board = new ProbServersBoard(prob);
-//
-//        // Create the Problem object
-//        Problem p = new  Problem(board,
-//                new ProbServersSuccesorFunctionHC(),
-//                new ProbServersGoalTest(),
-//                new ProbServersHeuristicFunction());
-//
-//        // Instantiate the search algorithm
-//        // AStarSearch(new GraphSearch()) or IterativeDeepeningAStarSearch()
-//        Search alg = new AStarSearch(new GraphSearch());
-//
-//        // Instantiate the SearchAgent object
-//        SearchAgent agent = new SearchAgent(p, alg);
-//
-//        // We print the results of the search
-//        System.out.println();
-//        printActions(agent.getActions());
-//        printInstrumentation(agent.getInstrumentation());
-//
-//        // You can access also to the goal state using the
-//        // method getGoalState of class Search
-//
-//    }
