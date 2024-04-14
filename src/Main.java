@@ -229,12 +229,13 @@ public class Main {
 
             //Imprimir estat
             ProbServersBoard nouBoard = (ProbServersBoard) search.getGoalState();
-            nouBoard.imprimirBoard(); //Fer print board d'alguna manera
+            // nouBoard.imprimirBoard(); //Fer print board d'alguna manera
+            System.out.println(nouBoard.getMaxTime());
 
             System.out.println();
             //Imprimir dades searchAgent
-            printActions(searchAgent.getActions());
-            printInstrumentation(searchAgent.getInstrumentation());
+            //printActions(searchAgent.getActions());
+            //printInstrumentation(searchAgent.getInstrumentation());
         } catch (Exception e) {
             e.printStackTrace();
         }

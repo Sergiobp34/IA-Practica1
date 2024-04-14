@@ -220,6 +220,14 @@ public class ProbServersBoard{
         }
     }
 
+    public Integer getMaxTime(){
+        int max=0;
+        for(int i=0; i< Temps.size(); ++i){
+            if (Temps.get(i)>max) max=Temps.get(i);
+        }
+        return max;
+    }
+
 
 
 
