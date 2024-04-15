@@ -119,7 +119,7 @@ public class Main {
 
                     ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 2);
                     // S'hauria de passar diferents paràmetres de SA, que és el que volem comparar
-                    SPSimulatedAnnealingSearch(serversBoard2);
+                    SPSimulatedAnnealingSearch(serversBoard2, 1);
                 }
                 return;
             } else if (exp == 4) {
@@ -132,19 +132,9 @@ public class Main {
                 nrequests = 3;
                 // No Hill Climbing
                 for (int iter =0; iter<10; ++iter){
-                    for(int reps=0; reps<10; ++reps) {
-                        Random randomNumbers = new Random();
-                        seed= randomNumbers.nextInt(10000);
-
-                        Servers servers = new Servers(nserv, nrep, seed);
-                        Requests requests = new Requests(users, nrequests, seed);
-                        System.out.println("servers size: " + servers.size());
-                        System.out.println("requests size: " + requests.size());
-
-                        ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 2);
-                        // S'hauria de passar diferents paràmetres de SA, que és el que volem comparar
-                        SPSimulatedAnnealingSearch(serversBoard2);
-                    }
+                    // Fer board
+                    // Fer HC
+                    // Incrementar paràmetres
                     users+=100;
                 }
 
@@ -155,19 +145,9 @@ public class Main {
                 nrequests = 3;
                 // Provar diferents nombres d'iteracions, 5 per exemple
                 for (int iter =0; iter<10; ++iter){
-                    for(int reps=0; reps<10; ++reps) {
-                        Random randomNumbers = new Random();
-                        seed= randomNumbers.nextInt(10000);
-
-                        Servers servers = new Servers(nserv, nrep, seed);
-                        Requests requests = new Requests(users, nrequests, seed);
-                        System.out.println("servers size: " + servers.size());
-                        System.out.println("requests size: " + requests.size());
-
-                        ProbServersBoard serversBoard2 = new ProbServersBoard(servers, requests, nserv, 2);
-                        // S'hauria de passar diferents paràmetres de SA, que és el que volem comparar
-                        SPSimulatedAnnealingSearch(serversBoard2);
-                    }
+                    // Fer board
+                    // Fer HC
+                    // Incrementar paràmetres
                     nserv+=50;
                 }
                 return;
@@ -227,7 +207,56 @@ public class Main {
                 // Experiment 6: Fent servir Simmulated annealing i les mateixes heurístiques que exp. 5 entre el temps total de
                 // transmissió i el temps per trobar la solució.
 
+                // Paràmetres inicials
+                nserv = 50;
+                nrep = 5;
+                users = 200;
+                nrequests = 5;
 
+                // Per heurística 1
+                for(int reps=0; reps<10; ++reps) {
+                    // Random seed
+                    Random randomNumbers = new Random();
+                    seed= randomNumbers.nextInt(10000);
+
+                    long time = System.currentTimeMillis();
+                    // Executar amb un conjunt d'operadors
+                    Servers servers = new Servers(nserv, nrep, seed);
+                    Requests requests = new Requests(users, nrequests, seed);
+                    //System.out.println("servers size: " + servers.size());
+                    //System.out.println("requests size: " + requests.size());
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 2);
+
+                    // Executar amb els dos operadors i HC
+                    SPSimulatedAnnealingSearch(serversBoard,1);
+
+                    time = System.currentTimeMillis() - time;
+                    System.out.println("Temps d'execució:   " + time);
+                    System.out.println("Temps heuristic1:   " + serversBoard.heuristic1());
+                }
+
+                // Per heurística 2
+                for(int reps=0; reps<10; ++reps) {
+                    // Random seed
+                    Random randomNumbers = new Random();
+                    seed= randomNumbers.nextInt(10000);
+
+                    long time = System.currentTimeMillis();
+                    // Executar amb un conjunt d'operadors
+                    Servers servers = new Servers(nserv, nrep, seed);
+                    Requests requests = new Requests(users, nrequests, seed);
+                    //System.out.println("servers size: " + servers.size());
+                    //System.out.println("requests size: " + requests.size());
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 2);
+
+                    // Executar amb els dos operadors i HC
+                    SPSimulatedAnnealingSearch(serversBoard,2);
+
+                    time = System.currentTimeMillis() - time;
+                    System.out.println("Temps d'execució:   " + time);
+                    System.out.println("Temps heuristic2:   " + serversBoard.heuristic1());
+
+                }
 
             } else if (exp == 7) {
                 // Experiment 7: Fent servir HC anar augmentant les replicacions de 5 en 5, desde 5 fins 25.
@@ -269,12 +298,23 @@ public class Main {
         }
     }
 
-    private static void SPSimulatedAnnealingSearch(ProbServersBoard SP) {
+    private static void SPSimulatedAnnealingSearch(ProbServersBoard SP, Integer he) {
         System.out.println("\nTSP Simulated Annealing  -->");
         try {
             // Atenció! SA fa servir una altra Successor Function que seria ProbServersSuccesorFunctionSA en comptes de ProbServersSuccesorFunction
-            Problem problem =  new Problem(SP,new ProbServersSuccesorFunctionSA(), new ProbServersGoalTest(),new ProbServersHeuristicFunction1());
-            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001); // Falta posar els paràmetres que toca
+                Problem problem;
+                if (he==1) {
+                    problem = new Problem(SP,
+                            new ProbServersSuccesorFunctionSA(),
+                            new ProbServersGoalTest(),
+                            new ProbServersHeuristicFunction1());
+                } else if(he==2){
+                    problem = new Problem(SP,
+                            new ProbServersSuccesorFunctionSA(),
+                            new ProbServersGoalTest(),
+                            new ProbServersHeuristicFunction2());
+                } else { return; }
+            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(8000,100,2,0.001); // Falta posar els paràmetres que toca
             search.traceOn();
             SearchAgent agent = new SearchAgent(problem,search);
 

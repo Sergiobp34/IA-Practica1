@@ -160,8 +160,8 @@ public class ProbServersBoard{
 
 
     //Heuristic1
-    public double heuristic1(){
-        double t = 0;
+    public int heuristic1(){
+        int t = 0;
         for (Integer temp : Temps) {
             if (temp > t) t = temp;
         }
@@ -169,8 +169,8 @@ public class ProbServersBoard{
     }
 
     //Heuristic2
-    public double heuristic2(){
-        double sum = 0;
+    public int heuristic2(){
+        int sum = 0;
 
         //suma tots els temps de transmissio
         for (Integer temp : Temps) sum += temp;
@@ -191,7 +191,7 @@ public class ProbServersBoard{
             }
         }
 
-        double penalitzacio1 = numPenal * 30000;
+        int penalitzacio1 = numPenal * 30000;
 
         //penalitzacio2: diferencia de temps entre mes gran i mes petit       sumem 70000ms*(diferencia/1000)
         int min= Integer.MAX_VALUE;
@@ -200,8 +200,8 @@ public class ProbServersBoard{
             if (temp > max) max = temp;
             if(temp < min) min = temp;
         }
-        double diff= max-min;
-        double penalitzacio2 = 70000 * (diff/1000);
+        int diff= max-min;
+        int penalitzacio2 = 70000 * (diff/1000);
 
         return sum + penalitzacio1 +penalitzacio2;
     }
