@@ -149,10 +149,10 @@ public class Main {
                 // I experimentar amb les penalitzacions del h2()
 
                 // Paràmetres inicials
-                nserv = 50;
+                nserv = 10;
                 nrep = 5;
-                users = 200;
-                nrequests = 5;
+                users = 50;
+                nrequests = 3;
 
                 // Per heurística 1
                 for(int reps=0; reps<10; ++reps) {
@@ -164,8 +164,8 @@ public class Main {
                     // Executar amb un conjunt d'operadors
                     Servers servers = new Servers(nserv, nrep, seed);
                     Requests requests = new Requests(users, nrequests, seed);
-                    System.out.println("servers size: " + servers.size());
-                    System.out.println("requests size: " + requests.size());
+                    //System.out.println("servers size: " + servers.size());
+                    //System.out.println("requests size: " + requests.size());
                     ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
 
                     // Executar amb els dos operadors i HC
@@ -185,8 +185,8 @@ public class Main {
                     // Executar amb un conjunt d'operadors
                     Servers servers = new Servers(nserv, nrep, seed);
                     Requests requests = new Requests(users, nrequests, seed);
-                    System.out.println("servers size: " + servers.size());
-                    System.out.println("requests size: " + requests.size());
+                    //System.out.println("servers size: " + servers.size());
+                    //System.out.println("requests size: " + requests.size());
                     ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
 
                     // Executar amb els dos operadors i HC
@@ -230,7 +230,8 @@ public class Main {
             //Imprimir estat
             ProbServersBoard nouBoard = (ProbServersBoard) search.getGoalState();
             // nouBoard.imprimirBoard(); //Fer print board d'alguna manera
-            System.out.println(nouBoard.getMaxTime());
+            if (he == 1) nouBoard.heuristic1();
+            else nouBoard.heuristic2();
 
             System.out.println();
             //Imprimir dades searchAgent
