@@ -182,25 +182,25 @@ public class Main {
                 nrequests = 3;
 
                 // Per heurística 1
-                for(int reps=0; reps<10; ++reps) {
-                    // Random seed
-                    Random randomNumbers = new Random();
-                    seed= randomNumbers.nextInt(10000);
-
-                    long time = System.currentTimeMillis();
-                    // Executar amb un conjunt d'operadors
-                    Servers servers = new Servers(nserv, nrep, seed);
-                    Requests requests = new Requests(users, nrequests, seed);
-                    //System.out.println("servers size: " + servers.size());
-                    //System.out.println("requests size: " + requests.size());
-                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
-
-                    // Executar amb els dos operadors i HC
-                    ServersHillClimbing(serversBoard, 2, 1);
-
-                    time = System.currentTimeMillis() - time;
-                    System.out.println("Temps d'execució: " + time + " ms");
-                }
+//                for(int reps=0; reps<10; ++reps) {
+//                    // Random seed
+//                    Random randomNumbers = new Random();
+//                    seed= randomNumbers.nextInt(10000);
+//
+//                    long time = System.currentTimeMillis();
+//                    // Executar amb un conjunt d'operadors
+//                    Servers servers = new Servers(nserv, nrep, seed);
+//                    Requests requests = new Requests(users, nrequests, seed);
+//                    //System.out.println("servers size: " + servers.size());
+//                    //System.out.println("requests size: " + requests.size());
+//                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
+//
+//                    // Executar amb els dos operadors i HC
+//                    ServersHillClimbing(serversBoard, 2, 1);
+//
+//                    time = System.currentTimeMillis() - time;
+//                    System.out.println("Temps d'execució: " + time + " ms");
+//                }
 
                 // Per heurística 2
                 for(int reps=0; reps<10; ++reps) {
@@ -214,7 +214,7 @@ public class Main {
                     Requests requests = new Requests(users, nrequests, seed);
                     //System.out.println("servers size: " + servers.size());
                     //System.out.println("requests size: " + requests.size());
-                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 1);
+                    ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 2);
 
                     // Executar amb els dos operadors i HC
                     ServersHillClimbing(serversBoard, 2, 2);
@@ -231,7 +231,54 @@ public class Main {
 
             } else if (exp == 7) {
                 // Experiment 7: Fent servir HC anar augmentant les replicacions de 5 en 5, desde 5 fins 25.
+                nserv = 10;
+                nrep = 1;
+                users = 50;
+                nrequests = 3;
 
+                for(int summ=0; summ<5; ++summ){
+                    System.out.println("Experiment per a nrep ="+(nrep+summ));
+                    System.out.println("Heuristic 1");
+                    for(int reps=0; reps<5; ++reps) {
+                        // Random seed
+                        Random randomNumbers = new Random();
+                        seed= randomNumbers.nextInt(10000);
+
+                        long time = System.currentTimeMillis();
+                        // Executar amb un conjunt d'operadors
+                        Servers servers = new Servers(nserv, nrep, seed);
+                        Requests requests = new Requests(users, nrequests, seed);
+                        //System.out.println("servers size: " + servers.size());
+                        //System.out.println("requests size: " + requests.size());
+                        ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 2);
+
+                        // Executar amb els dos operadors i HC
+                        ServersHillClimbing(serversBoard, 2, 1);
+
+                        time = System.currentTimeMillis() - time;
+                        System.out.println("Temps d'execució: " + time + " ms");
+                    }
+                    System.out.println("Heuristic 1");
+                    for(int reps=0; reps<5; ++reps) {
+                        // Random seed
+                        Random randomNumbers = new Random();
+                        seed= randomNumbers.nextInt(10000);
+
+                        long time = System.currentTimeMillis();
+                        // Executar amb un conjunt d'operadors
+                        Servers servers = new Servers(nserv, nrep, seed);
+                        Requests requests = new Requests(users, nrequests, seed);
+                        //System.out.println("servers size: " + servers.size());
+                        //System.out.println("requests size: " + requests.size());
+                        ProbServersBoard serversBoard = new ProbServersBoard(servers, requests, nserv, 2);
+
+                        // Executar amb els dos operadors i HC
+                        ServersHillClimbing(serversBoard, 2, 2);
+
+                        time = System.currentTimeMillis() - time;
+                        System.out.println("Temps d'execució: " + time + " ms");
+                    }
+                }
             }
         }
     }
@@ -257,8 +304,9 @@ public class Main {
             //Imprimir estat
             ProbServersBoard nouBoard = (ProbServersBoard) search.getGoalState();
             // nouBoard.imprimirBoard(); //Fer print board d'alguna manera
-            if (he == 1) nouBoard.heuristic1();
-            else nouBoard.heuristic2();
+            if (he == 1) System.out.println(nouBoard.heuristic1());
+            else System.out.println(nouBoard.heuristic2());
+            //System.out.println(nouBoard.heuristic2()); Per l'experiment 7 sempre ha de retorna aquest
 
             System.out.println();
             //Imprimir dades searchAgent
